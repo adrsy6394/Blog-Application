@@ -15,13 +15,18 @@ export default function DashboardPage() {
   const router = useRouter();
   const [userPosts, setUserPosts] = useState<Post[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // --- HOOKS SECTION (Must be at the top) ---
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
-    // If not authenticated and not loading, redirect to login
-    if (!authLoading && !isAuthenticated) {
+    if (isMounted && !authLoading && !isAuthenticated) {
       router.push('/login?redirect=/dashboard');
     }
-  }, [isAuthenticated, authLoading, router]);
+  }, [isMounted, authLoading, isAuthenticated, router]);
 
   useEffect(() => {
     const fetchUserPosts = async () => {
@@ -34,16 +39,24 @@ export default function DashboardPage() {
         } finally {
           setLoadingPosts(false);
         }
+      } else if (isMounted && !authLoading && !isAuthenticated) {
+        setLoadingPosts(false);
       }
     };
 
-    if (user?.id) {
+    if (isMounted) {
       fetchUserPosts();
     }
-  }, [user]);
+  }, [user, isMounted, authLoading, isAuthenticated]);
 
-  if (authLoading || (!isAuthenticated && !authLoading)) {
-    return <Loader size="lg" text="Authenticating..." />;
+  // --- RENDER SECTION ---
+  // Show loader while mounting or while auth is being verified
+  if (!isMounted || authLoading || (!isAuthenticated && isMounted)) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <Loader size="lg" text={!isAuthenticated && isMounted && !authLoading ? "Redirecting..." : "Verifying session..."} />
+      </div>
+    );
   }
 
   if (!user) return null;
@@ -60,10 +73,10 @@ export default function DashboardPage() {
           </p>
         </div>
         <div>
-          <button className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors flex items-center gap-2">
+          <Link href="/blog" className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors flex items-center gap-2">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" /></svg>
             Create New Post
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -109,7 +122,7 @@ export default function DashboardPage() {
             ))}
           </div>
         ) : userPosts.length > 0 ? (
-          <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
+          <div className="bg-theme shadow-sm border border-theme rounded-xl overflow-hidden">
             <ul className="divide-y divide-gray-100 dark:divide-gray-700">
               {userPosts.map((post) => (
                 <li key={post.id} className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
@@ -135,11 +148,11 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <button className="p-2 text-gray-400 hover:text-blue-600 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded shadow-sm transition-colors">
+                      <button className="p-2 text-gray-400 hover:text-blue-600 bg-theme border border-theme rounded shadow-sm transition-colors">
                         <span className="sr-only">Edit</span>
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                       </button>
-                      <button className="p-2 text-gray-400 hover:text-red-600 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded shadow-sm transition-colors">
+                      <button className="p-2 text-gray-400 hover:text-red-600 bg-theme border border-theme rounded shadow-sm transition-colors">
                         <span className="sr-only">Delete</span>
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                       </button>

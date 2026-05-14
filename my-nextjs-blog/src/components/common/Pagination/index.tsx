@@ -24,49 +24,35 @@ const Pagination = React.memo(({ currentPage, totalPages, onPageChange }: Pagina
   }
 
   return (
-    <div className="flex justify-center items-center space-x-2 mt-12 mb-8">
+    <div className="flex justify-center items-center space-x-4 mt-20 mb-20">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="px-6 py-3 glass rounded-none text-[10px] font-bold uppercase tracking-widest text-white hover:bg-white/10 disabled:opacity-20 disabled:cursor-not-allowed transition-all"
       >
-        Previous
+        Prev
       </button>
       
-      <div className="hidden sm:flex space-x-2">
-        {start > 1 && (
-          <>
-            <button onClick={() => onPageChange(1)} className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">1</button>
-            {start > 2 && <span className="px-2 py-2 text-gray-500">...</span>}
-          </>
-        )}
-        
+      <div className="hidden sm:flex space-x-3">
         {pages.map(page => (
           <button
             key={page}
             onClick={() => onPageChange(page)}
-            className={`px-4 py-2 border rounded-lg text-sm font-medium transition-colors ${
+            className={`w-12 h-12 flex items-center justify-center rounded-none text-xs font-bold transition-all ${
               currentPage === page
-                ? 'border-blue-600 bg-blue-600 text-white'
-                : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700'
+                ? 'bg-white text-[#0f172a]'
+                : 'glass text-white/40 hover:text-white hover:bg-white/5'
             }`}
           >
-            {page}
+            {page.toString().padStart(2, '0')}
           </button>
         ))}
-        
-        {end < totalPages && (
-          <>
-            {end < totalPages - 1 && <span className="px-2 py-2 text-gray-500">...</span>}
-            <button onClick={() => onPageChange(totalPages)} className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">{totalPages}</button>
-          </>
-        )}
       </div>
       
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="px-6 py-3 glass rounded-none text-[10px] font-bold uppercase tracking-widest text-white hover:bg-white/10 disabled:opacity-20 disabled:cursor-not-allowed transition-all"
       >
         Next
       </button>

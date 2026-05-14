@@ -7,6 +7,7 @@ import {
   loadUser,
   setUser,
   setError,
+  setLoading,
   logout,
   User,
 } from '../slices/authSlice';
@@ -28,12 +29,32 @@ function* loginSaga(action: PayloadAction<{username: string; password: string}>)
     
     yield put(addNotification({ message: 'Login successful', type: 'success' }));
     
-    if (typeof document !== 'undefined') {
-      document.cookie = `auth_token=${user.token}; path=/; max-age=3600`;
+    if (user.token && typeof document !== 'undefined') {
+      document.cookie = `auth_token=${user.token}; path=/; max-age=3600; SameSite=Lax`;
+      window.location.href = '/dashboard';
+    } else if (typeof window !== 'undefined') {
       window.location.href = '/dashboard';
     }
   } catch (error: any) {
-    const errorMessage = error.response?.data?.message || 'Login failed';
+    // Fallback to mock users if API fails (for newly signed up users)
+    if (typeof window !== 'undefined') {
+      const { username, password } = action.payload;
+      const mockUsers = JSON.parse(localStorage.getItem('mock_users') || '[]');
+      const mockUser = mockUsers.find((u: any) => u.username === username && u.password === password);
+      
+      if (mockUser) {
+        const userWithToken = { ...mockUser };
+        yield put(setUser(userWithToken));
+        localStorage.setItem(AUTH_TOKEN_KEY, userWithToken.token);
+        setCacheItem('current_user', userWithToken);
+        document.cookie = `auth_token=${userWithToken.token}; path=/; max-age=3600; SameSite=Lax`;
+        yield put(addNotification({ message: 'Login successful (Mock Mode)', type: 'success' }));
+        window.location.href = '/dashboard';
+        return;
+      }
+    }
+
+    const errorMessage = error.response?.data?.message || 'Login failed. Please check your credentials.';
     yield put(setError(errorMessage));
     yield put(addNotification({ message: errorMessage, type: 'error' }));
   }
@@ -66,6 +87,7 @@ function* loadUserFromStorageSaga(): Generator<any, void, any> {
       if (token) {
          localStorage.removeItem(AUTH_TOKEN_KEY);
       }
+      yield put(setLoading(false));
       return;
     }
     
@@ -74,8 +96,10 @@ function* loadUserFromStorageSaga(): Generator<any, void, any> {
   } catch (error: any) {
     if (typeof window !== 'undefined') {
       localStorage.removeItem(AUTH_TOKEN_KEY);
+      document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
     }
     yield put(setError('Session expired. Please log in again.'));
+    yield put(setLoading(false));
   }
 }
 

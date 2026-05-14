@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 
 export const revalidate = 1800;
 
+import AnimatedSection from '@/components/common/AnimatedSection';
+
 export default async function HomePage() {
   let posts: Post[] = [];
   try {
@@ -22,74 +24,106 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-theme text-theme">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 overflow-hidden bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
-        <div className="absolute inset-0 top-0 left-0 right-0 h-full w-full overflow-hidden bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-900 -z-10"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="max-w-2xl">
-              <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-tight mb-6">
-                Insights, Stories, and <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">Brilliant Ideas</span>
-              </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                Welcome to BlogApp, a modern platform designed for seamless reading and writing experiences. Explore topics ranging from technology to lifestyle.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/blog" className="inline-flex justify-center items-center px-8 py-4 text-base font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1">
-                  Explore Articles
-                  <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </Link>
-                <Link href="/about" className="inline-flex justify-center items-center px-8 py-4 text-base font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 dark:text-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-xl transition-all">
-                  Learn More
-                </Link>
-              </div>
+      <section className="relative h-screen min-h-[700px] flex items-center overflow-hidden bg-[#0f172a]">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src="/images/hero.png" 
+            alt="Hero Blogging" 
+            fill 
+            className="object-cover brightness-[0.4]"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-[#0f172a]/40" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-20">
+          <div className="grid lg:grid-cols-12 gap-8 items-start">
+            <div className="lg:col-span-8">
+              <AnimatedSection direction="right" duration={1.2}>
+                <h1 className="heading-hero mb-8 text-white drop-shadow-2xl">
+                  The Infinite <br />
+                  <span className="text-white/80">Power of</span> <br />
+                  Words
+                </h1>
+              </AnimatedSection>
             </div>
-            <div className="hidden lg:block relative">
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 to-indigo-200 dark:from-blue-900/40 dark:to-indigo-900/40 rounded-3xl transform rotate-3 scale-105 opacity-50 blur-lg"></div>
-              <Image 
-                src="https://picsum.photos/seed/blog/800/600" 
-                alt="Hero Illustration" 
-                width={800} 
-                height={600} 
-                className="relative rounded-3xl shadow-2xl object-cover border border-white/20 dark:border-gray-700/50"
-                priority
-              />
+
+            <div className="lg:col-span-4 flex flex-col gap-8 justify-end h-full py-12">
+              <AnimatedSection delay={0.4} direction="up">
+                <div className="glass p-8 rounded-2xl max-w-sm ml-auto">
+                  <p className="text-sm font-medium uppercase tracking-[0.2em] text-white/50 mb-4">Thoughts & Insights</p>
+                  <p className="text-lg leading-relaxed text-white/90 text-balance">
+                    A platform where ideas transcend boundaries, where storytelling meets precision to inspire, educate, and connect minds across the globe.
+                  </p>
+                </div>
+              </AnimatedSection>
+              
+              <AnimatedSection delay={0.6} direction="up">
+                <div className="flex gap-4 justify-end">
+                   <Link href="/blog" className="px-8 py-4 bg-white text-[#0f172a] font-bold uppercase tracking-widest hover:bg-gray-200 transition-all rounded-sm text-sm">
+                     Explore Feed
+                   </Link>
+                   <Link href="/about" className="px-8 py-4 border border-white/30 text-white font-bold uppercase tracking-widest hover:bg-white/10 transition-all rounded-sm text-sm">
+                     Our Mission
+                   </Link>
+                </div>
+              </AnimatedSection>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Detail Bar (Updated for Blogging) */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 py-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-wrap items-end justify-between gap-12 text-white">
+               <div className="flex items-center gap-8">
+                  <AnimatedSection delay={0.8} direction="up" className="border-l-2 border-white/20 pl-6">
+                    <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Total Stories</p>
+                    <p className="text-4xl font-black uppercase tracking-tighter">1.2K+</p>
+                  </AnimatedSection>
+                  <AnimatedSection delay={1.0} direction="up" className="border-l-2 border-white/20 pl-6">
+                    <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Weekly Readers</p>
+                    <p className="text-4xl font-black uppercase tracking-tighter">50K+</p>
+                  </AnimatedSection>
+               </div>
+               
+               <AnimatedSection delay={1.2} direction="none" className="hidden md:block">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 text-right">Creative Expression • Digital Journalism</p>
+               </AnimatedSection>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Posts */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900 flex-grow">
+      {/* Featured Posts Section (Modernized) */}
+      <section className="py-32 bg-theme relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-end mb-12">
+          <AnimatedSection className="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-4">
             <div>
-              <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight sm:text-4xl">Featured Posts</h2>
-              <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">The latest articles from our top authors.</p>
+              <h2 className="text-5xl font-black uppercase tracking-tighter text-theme">Journal</h2>
+              <p className="mt-2 text-theme/40 uppercase tracking-[0.3em] text-xs">Explore the latest insights</p>
             </div>
-            <Link href="/blog" className="hidden sm:inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline">
-              View all posts &rarr;
+            <Link href="/blog" className="text-sm font-bold uppercase tracking-widest border-b border-theme pb-1 hover:border-blue-600 transition-all">
+              View All Stories
             </Link>
-          </div>
+          </AnimatedSection>
 
           {posts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map(post => (
-                <PostCard key={post.id} post={post} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+              {posts.map((post, index) => (
+                <AnimatedSection key={post.id} delay={index * 0.1}>
+                  <PostCard post={post} />
+                </AnimatedSection>
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-               <p className="text-gray-500 dark:text-gray-400">No posts available at the moment.</p>
-            </div>
+            <AnimatedSection className="text-center py-20 glass rounded-3xl">
+               <p className="text-theme/40 font-medium tracking-widest uppercase text-sm">Waiting for inspiration...</p>
+            </AnimatedSection>
           )}
-
-          <div className="mt-12 sm:hidden text-center">
-             <Link href="/blog" className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors w-full">
-              View all posts
-            </Link>
-          </div>
         </div>
       </section>
     </div>

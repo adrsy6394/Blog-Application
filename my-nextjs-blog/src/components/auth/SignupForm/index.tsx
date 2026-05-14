@@ -55,8 +55,19 @@ export default function SignupForm() {
     
     setErrors({});
     
-    // Fake signup success
-    dispatch(addNotification({ message: "Account created successfully! Please login.", type: "success" }));
+    // Store user for mock login (since DummyJSON doesn't persist new users)
+    if (typeof window !== 'undefined') {
+      const mockUsers = JSON.parse(localStorage.getItem('mock_users') || '[]');
+      mockUsers.push({
+        ...formData,
+        id: Math.floor(Math.random() * 1000) + 500, // Random ID
+        image: `https://i.pravatar.cc/150?u=${formData.username}`,
+        token: `mock-token-${Date.now()}`
+      });
+      localStorage.setItem('mock_users', JSON.stringify(mockUsers));
+    }
+    
+    dispatch(addNotification({ message: "Account created successfully! Please login with your credentials.", type: "success" }));
     router.push("/login");
   };
 

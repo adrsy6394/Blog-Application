@@ -7,12 +7,21 @@ export const authService = {
       username,
       password,
     });
-    return response.data;
+    // DummyJSON returns 'accessToken' in newer versions, but we use 'token'
+    const data = response.data;
+    if (data.accessToken && !data.token) {
+      data.token = data.accessToken;
+    }
+    return data;
   },
 
   getCurrentUser: async (): Promise<User> => {
     const response = await api.get('/auth/me');
-    return response.data;
+    const data = response.data;
+    if (data.accessToken && !data.token) {
+      data.token = data.accessToken;
+    }
+    return data;
   },
 
   getUserById: async (id: number): Promise<User> => {
