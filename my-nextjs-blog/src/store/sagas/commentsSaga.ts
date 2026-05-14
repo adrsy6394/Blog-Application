@@ -10,11 +10,23 @@ import {
 } from '../slices/commentsSlice';
 import { addNotification } from '../slices/uiSlice';
 
+import { CACHE_KEYS } from '@/utils/constants';
+import { getCacheItem, setCacheItem } from '@/utils/helpers';
+
 function* fetchCommentsSaga(action: PayloadAction<number>): Generator<any, void, any> {
   try {
     const postId = action.payload;
+    const cacheKey = CACHE_KEYS.COMMENTS(postId);
+    
+    const cachedData = getCacheItem<any[]>(cacheKey);
+    if (cachedData) {
+      yield put(setComments(cachedData));
+      return;
+    }
+    
     const response = yield call(commentsService.getCommentsByPost, postId);
     yield put(setComments(response.comments));
+    setCacheItem(cacheKey, response.comments);
   } catch (error: any) {
     yield put(setError(error.message || 'Failed to fetch comments'));
   }

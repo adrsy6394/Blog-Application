@@ -913,11 +913,11 @@ Show the complete implementation for all files.
 ## MODULE 12 — Local Storage Caching {#module-12}
 
 ### ✅ To-Do
-- [ ] Cache all fetched posts with 1-hour expiry
-- [ ] Cache single post data
-- [ ] Cache auth user data
-- [ ] Serve from cache when offline
-- [ ] Implement cache invalidation
+- [x] Cache all fetched posts with 1-hour expiry
+- [x] Cache single post data
+- [x] Cache auth user data
+- [x] Serve from cache when offline
+- [x] Implement cache invalidation
 
 ### 🤖 AI PROMPT — Module 12
 ```

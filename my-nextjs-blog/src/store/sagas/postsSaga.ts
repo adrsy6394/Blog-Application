@@ -18,7 +18,6 @@ import {
 } from '../slices/postsSlice';
 import { addNotification } from '../slices/uiSlice';
 import { POSTS_PER_PAGE, CACHE_KEYS } from '@/utils/constants';
-import { getCacheItem, setCacheItem } from '@/utils/helpers';
 import { RootState } from '../index';
 
 function* fetchAllPostsSaga(action: PayloadAction<{page: number}>): Generator<any, void, any> {
@@ -60,6 +59,8 @@ function* fetchPostByIdSaga(action: PayloadAction<number>): Generator<any, void,
   }
 }
 
+import { getCacheItem, setCacheItem, clearCacheItem, clearAllCache } from '@/utils/helpers';
+
 function* createPostSaga(action: PayloadAction<CreatePostDto>): Generator<any, void, any> {
   try {
     const user = yield select((state: RootState) => state.auth.user);
@@ -67,6 +68,10 @@ function* createPostSaga(action: PayloadAction<CreatePostDto>): Generator<any, v
     
     const newPost: Post = yield call(postsService.createPost, { ...action.payload, userId: user.id });
     yield put(addPost(newPost));
+    
+    // Invalidate caches
+    clearAllCache(); // Simplest approach: clear all posts-related cache
+    
     yield put(addNotification({ message: 'Post created successfully!', type: 'success' }));
   } catch (error: any) {
     yield put(setError(error.message || 'Failed to create post'));
@@ -79,6 +84,11 @@ function* updatePostSaga(action: PayloadAction<{id: number, data: UpdatePostDto}
     const { id, data } = action.payload;
     const updatedPost: Post = yield call(postsService.updatePost, id, data);
     yield put(updatePost(updatedPost));
+    
+    // Invalidate caches
+    clearCacheItem(CACHE_KEYS.POST_DETAIL(id));
+    clearAllCache(); 
+    
     yield put(addNotification({ message: 'Post updated successfully!', type: 'success' }));
   } catch (error: any) {
     yield put(setError(error.message || 'Failed to update post'));
@@ -91,6 +101,11 @@ function* deletePostSaga(action: PayloadAction<number>): Generator<any, void, an
     const id = action.payload;
     yield call(postsService.deletePost, id);
     yield put(removePost(id));
+    
+    // Invalidate caches
+    clearCacheItem(CACHE_KEYS.POST_DETAIL(id));
+    clearAllCache();
+    
     yield put(addNotification({ message: 'Post deleted successfully!', type: 'success' }));
   } catch (error: any) {
     yield put(setError(error.message || 'Failed to delete post'));
