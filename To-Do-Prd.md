@@ -867,10 +867,10 @@ Export a config with matcher for protected paths.
 ## MODULE 11 — SSR / SSG / ISR {#module-11}
 
 ### ✅ To-Do
-- [ ] Blog list uses SSR (dynamic)
-- [ ] Blog detail uses SSG with generateStaticParams
-- [ ] About page is static (SSG)
-- [ ] Implement ISR for blog posts (revalidate: 3600)
+- [x] Blog list uses SSR (dynamic)
+- [x] Blog detail uses SSG with generateStaticParams
+- [x] About page is static (SSG)
+- [x] Implement ISR for blog posts (revalidate: 3600)
 
 ### 🤖 AI PROMPT — Module 11
 ```

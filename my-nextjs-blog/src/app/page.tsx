@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "A production-grade blog application built with Next.js",
 };
 
-export const revalidate = 3600;
+export const revalidate = 1800;
 
 export default async function HomePage() {
   let posts = [];

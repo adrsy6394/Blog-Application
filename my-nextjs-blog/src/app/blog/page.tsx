@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { Suspense } from 'react';
 import BlogListClient from '@/components/blog/BlogListClient';
 import { PostCardSkeleton } from '@/components/common/Skeleton';
+import { postsService } from '@/lib/postsService';
 
 export const metadata: Metadata = {
   title: 'All Posts | BlogApp',
@@ -10,7 +11,15 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic';
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  let initialData = null;
+  try {
+    // SSR: Fetch first page of posts on server
+    initialData = await postsService.getAllPosts(10, 0);
+  } catch (error) {
+    console.error("Failed to fetch initial blog posts:", error);
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
@@ -19,7 +28,7 @@ export default function BlogPage() {
       </div>
       
       <Suspense fallback={<div className="grid grid-cols-1 md:grid-cols-3 gap-6"><PostCardSkeleton /><PostCardSkeleton /><PostCardSkeleton /></div>}>
-        <BlogListClient />
+        <BlogListClient initialData={initialData} />
       </Suspense>
     </div>
   );

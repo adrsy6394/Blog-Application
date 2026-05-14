@@ -1,29 +1,46 @@
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { fetchPostsRequest, searchPostsRequest, setPage } from '@/store/slices/postsSlice';
+import { fetchPostsRequest, searchPostsRequest, setPage, setPosts } from '@/store/slices/postsSlice';
 import { selectAllPosts, selectPostsLoading, selectTotalPosts, selectCurrentPage } from '@/store/selectors/postsSelectors';
 import PostList from '../PostList';
 import Pagination from '@/components/common/Pagination';
 import { POSTS_PER_PAGE } from '@/utils/constants';
 
-export default function BlogListClient() {
+interface BlogListClientProps {
+  initialData?: any;
+}
+
+export default function BlogListClient({ initialData }: BlogListClientProps) {
   const dispatch = useAppDispatch();
   const posts = useAppSelector(selectAllPosts);
   const isLoading = useAppSelector(selectPostsLoading);
   const totalPosts = useAppSelector(selectTotalPosts);
   const currentPage = useAppSelector(selectCurrentPage);
+  const isHydrated = useRef(false);
   
   const [searchQuery, setSearchQuery] = useState('');
   
+  // Hydrate store with initial data on mount
+  useEffect(() => {
+    if (initialData && posts.length === 0 && !isHydrated.current) {
+      dispatch(setPosts({
+        posts: initialData.posts,
+        total: initialData.total
+      }));
+      isHydrated.current = true;
+    }
+  }, [initialData, dispatch, posts.length]);
+
   const totalPages = useMemo(() => Math.ceil(totalPosts / POSTS_PER_PAGE), [totalPosts]);
 
   useEffect(() => {
-    if (!searchQuery) {
+    // Only fetch if we don't have initial data OR we are on a different page
+    if (!searchQuery && (!initialData || currentPage > 1 || (posts.length === 0 && !isHydrated.current))) {
       dispatch(fetchPostsRequest({ page: currentPage }));
     }
-  }, [dispatch, currentPage, searchQuery]);
+  }, [dispatch, currentPage, searchQuery, initialData, posts.length]);
 
   const handlePageChange = useCallback((page: number) => {
     dispatch(setPage(page));
