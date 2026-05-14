@@ -397,12 +397,12 @@ Create utility files for the Next.js blog app.
 ## MODULE 5 — Authentication {#module-5}
 
 ### ✅ To-Do
-- [ ] Create `store/sagas/authSaga.ts`
-- [ ] Create `components/auth/LoginForm/index.tsx`
-- [ ] Create `components/auth/SignupForm/index.tsx`
-- [ ] Create `app/login/page.tsx`
-- [ ] Create `app/signup/page.tsx`
-- [ ] Create `hooks/useAuth.ts`
+- [x] Create `store/sagas/authSaga.ts`
+- [x] Create `components/auth/LoginForm/index.tsx`
+- [x] Create `components/auth/SignupForm/index.tsx`
+- [x] Create `app/login/page.tsx`
+- [x] Create `app/signup/page.tsx`
+- [x] Create `hooks/useAuth.ts`
 
 ### 🤖 AI PROMPT — Module 5A: Auth Saga
 ```
