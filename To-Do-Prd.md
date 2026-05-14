@@ -312,13 +312,13 @@ TypeScript strict types required.
 ## MODULE 4 — API Layer {#module-4}
 
 ### ✅ To-Do
-- [ ] Create `lib/api.ts` — Axios instance with interceptors
-- [ ] Create `lib/authService.ts`
-- [ ] Create `lib/postsService.ts`
-- [ ] Create `lib/commentsService.ts`
-- [ ] Create `utils/constants.ts`
-- [ ] Create `utils/helpers.ts`
-- [ ] Create `utils/validators.ts`
+- [x] Create `lib/api.ts` — Axios instance with interceptors
+- [x] Create `lib/authService.ts`
+- [x] Create `lib/postsService.ts`
+- [x] Create `lib/commentsService.ts`
+- [x] Create `utils/constants.ts`
+- [x] Create `utils/helpers.ts`
+- [x] Create `utils/validators.ts`
 
 ### 🤖 AI PROMPT — Module 4A: Axios Instance
 ```
