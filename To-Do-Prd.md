@@ -646,8 +646,8 @@ Use useAppDispatch, useAppSelector with typed selectors from @/store/selectors/p
 ## MODULE 7 — Comments {#module-7}
 
 ### ✅ To-Do
-- [ ] Create `store/sagas/commentsSaga.ts`
-- [ ] Create `components/blog/CommentSection/index.tsx`
+- [x] Create `store/sagas/commentsSaga.ts`
+- [x] Create `components/blog/CommentSection/index.tsx`
 
 ### 🤖 AI PROMPT — Module 7
 ```

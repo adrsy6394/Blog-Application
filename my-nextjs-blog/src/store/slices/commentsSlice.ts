@@ -45,8 +45,23 @@ const commentsSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
+    fetchCommentsRequest(state, action: PayloadAction<number>) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    addCommentRequest(state, action: PayloadAction<{postId: number, body: string, userId: number, username: string}>) {
+      state.isLoading = true;
+      state.error = null;
+    },
   },
 });
 
-export const { setLoading, setComments, addComment, setError } = commentsSlice.actions;
+export const { 
+  setLoading, 
+  setComments, 
+  addComment, 
+  setError,
+  fetchCommentsRequest,
+  addCommentRequest,
+} = commentsSlice.actions;
 export default commentsSlice.reducer;

@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import { fetchPostRequest } from '@/store/slices/postsSlice';
 import { selectCurrentPost, selectPostsLoading } from '@/store/selectors/postsSelectors';
 import { PostDetailSkeleton } from '@/components/common/Skeleton';
+import CommentSection from '../CommentSection';
 import Link from 'next/link';
 
 interface PostDetailClientProps {
@@ -67,10 +68,7 @@ export default function PostDetailClient({ id }: PostDetailClientProps) {
       
       <hr className="my-12 border-gray-200 dark:border-gray-800" />
       
-      <div id="comments">
-        <h3 className="text-2xl font-bold mb-6">Comments</h3>
-        <p className="text-gray-500 italic">Comments will be loaded here...</p>
-      </div>
+      <CommentSection postId={post.id} />
     </article>
   );
 }
