@@ -202,14 +202,14 @@ Use Tailwind CSS for all styling. Keep it clean and production-grade.
 ## MODULE 3 — Redux Store Setup {#module-3}
 
 ### ✅ To-Do
-- [ ] Create `store/index.ts` (store config + types)
-- [ ] Create `store/slices/authSlice.ts`
-- [ ] Create `store/slices/postsSlice.ts`
-- [ ] Create `store/slices/commentsSlice.ts`
-- [ ] Create `store/slices/uiSlice.ts`
-- [ ] Create `store/sagas/index.ts` (root saga)
-- [ ] Create `store/selectors/authSelectors.ts`
-- [ ] Create `store/selectors/postsSelectors.ts`
+- [x] Create `store/index.ts` (store config + types)
+- [x] Create `store/slices/authSlice.ts`
+- [x] Create `store/slices/postsSlice.ts`
+- [x] Create `store/slices/commentsSlice.ts`
+- [x] Create `store/slices/uiSlice.ts`
+- [x] Create `store/sagas/index.ts` (root saga)
+- [x] Create `store/selectors/authSelectors.ts`
+- [x] Create `store/selectors/postsSelectors.ts`
 
 ### 🤖 AI PROMPT — Module 3A: Store Config
 ```
