@@ -159,13 +159,13 @@ Make sure TypeScript strict mode is enabled.
 ## MODULE 2 — Folder Structure & Base Files {#module-2}
 
 ### ✅ To-Do
-- [ ] Create all folders as per recommended structure
-- [ ] Create `app/layout.tsx` with providers
-- [ ] Create `app/providers.tsx` (Redux Provider + ThemeProvider)
-- [ ] Create `app/globals.css`
-- [ ] Create `app/loading.tsx`
-- [ ] Create `app/error.tsx`
-- [ ] Create `app/not-found.tsx`
+- [x] Create all folders as per recommended structure
+- [x] Create `app/layout.tsx` with providers
+- [x] Create `app/providers.tsx` (Redux Provider + ThemeProvider)
+- [x] Create `app/globals.css`
+- [x] Create `app/loading.tsx`
+- [x] Create `app/error.tsx`
+- [x] Create `app/not-found.tsx`
 
 ### 🤖 AI PROMPT — Module 2
 ```
