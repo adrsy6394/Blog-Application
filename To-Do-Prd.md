@@ -1072,11 +1072,11 @@ Provide complete updated code for the affected files.
 ## MODULE 15 — Bonus Features {#module-15}
 
 ### ✅ To-Do (Bonus)
-- [ ] Dark mode toggle
-- [ ] Search with debounce
-- [ ] Skeleton loaders
-- [ ] Infinite scroll (optional, replaces pagination)
-- [ ] User profile page `/profile/[id]`
+- [x] Dark mode toggle
+- [x] Search with debounce
+- [x] Skeleton loaders
+- [x] Infinite scroll (optional, replaces pagination)
+- [x] User profile page `/profile/[id]`
 
 ### 🤖 AI PROMPT — Module 15A: Dark Mode
 ```

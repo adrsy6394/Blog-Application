@@ -7,6 +7,7 @@ import { selectAllPosts, selectPostsLoading, selectTotalPosts, selectCurrentPage
 import PostList from '../PostList';
 import Pagination from '@/components/common/Pagination';
 import { POSTS_PER_PAGE } from '@/utils/constants';
+import { useDebounce } from '@/hooks/useDebounce';
 
 interface BlogListClientProps {
   initialData?: any;
@@ -21,6 +22,7 @@ export default function BlogListClient({ initialData }: BlogListClientProps) {
   const isHydrated = useRef(false);
   
   const [searchQuery, setSearchQuery] = useState('');
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
   
   // Hydrate store with initial data on mount
   useEffect(() => {
@@ -36,11 +38,12 @@ export default function BlogListClient({ initialData }: BlogListClientProps) {
   const totalPages = useMemo(() => Math.ceil(totalPosts / POSTS_PER_PAGE), [totalPosts]);
 
   useEffect(() => {
-    // Only fetch if we don't have initial data OR we are on a different page
-    if (!searchQuery && (!initialData || currentPage > 1 || (posts.length === 0 && !isHydrated.current))) {
+    if (debouncedSearchQuery.trim()) {
+      dispatch(searchPostsRequest(debouncedSearchQuery));
+    } else if (!searchQuery && (!initialData || currentPage > 1 || (posts.length === 0 && !isHydrated.current))) {
       dispatch(fetchPostsRequest({ page: currentPage }));
     }
-  }, [dispatch, currentPage, searchQuery, initialData, posts.length]);
+  }, [dispatch, currentPage, debouncedSearchQuery, initialData, posts.length, searchQuery]);
 
   const handlePageChange = useCallback((page: number) => {
     dispatch(setPage(page));
@@ -51,19 +54,10 @@ export default function BlogListClient({ initialData }: BlogListClientProps) {
     setSearchQuery(e.target.value);
   }, []);
 
-  const executeSearch = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      dispatch(searchPostsRequest(searchQuery));
-    } else {
-      dispatch(fetchPostsRequest({ page: 1 }));
-    }
-  }, [dispatch, searchQuery]);
-
   return (
     <>
       <div className="mb-8 max-w-xl mx-auto">
-        <form onSubmit={executeSearch} className="relative">
+        <form onSubmit={(e) => e.preventDefault()} className="relative">
           <input
             type="text"
             value={searchQuery}
@@ -75,11 +69,20 @@ export default function BlogListClient({ initialData }: BlogListClientProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
           {searchQuery && (
-            <button type="button" onClick={() => { setSearchQuery(''); dispatch(fetchPostsRequest({ page: 1 })); }} className="absolute right-4 top-4 text-gray-400 hover:text-gray-600">
+            <button 
+              type="button" 
+              onClick={() => { setSearchQuery(''); dispatch(fetchPostsRequest({ page: 1 })); }} 
+              className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+            >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
           )}
         </form>
+        {debouncedSearchQuery && (
+          <p className="mt-4 text-center text-gray-500 dark:text-gray-400">
+            {isLoading ? 'Searching...' : `Found ${totalPosts} results for "${debouncedSearchQuery}"`}
+          </p>
+        )}
       </div>
 
       <PostList posts={posts} isLoading={isLoading} />
