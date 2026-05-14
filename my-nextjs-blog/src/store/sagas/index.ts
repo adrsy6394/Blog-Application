@@ -1,10 +1,6 @@
 import { all, fork } from 'redux-saga/effects';
 import { watchAuthSaga } from './authSaga';
-
-// Temporary stubs for child sagas
-function* postsSaga() {
-  // posts saga stub
-}
+import { watchPostsSaga } from './postsSaga';
 
 function* commentsSaga() {
   // comments saga stub
@@ -13,7 +9,7 @@ function* commentsSaga() {
 export default function* rootSaga() {
   yield all([
     fork(watchAuthSaga),
-    fork(postsSaga),
+    fork(watchPostsSaga),
     fork(commentsSaga),
   ]);
 }

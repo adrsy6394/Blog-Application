@@ -514,15 +514,15 @@ Use proper TypeScript types. Import from @/store and @/store/slices/authSlice.
 ## MODULE 6 — Posts {#module-6}
 
 ### ✅ To-Do
-- [ ] Create `store/sagas/postsSaga.ts`
-- [ ] Create `components/blog/PostCard/index.tsx`
-- [ ] Create `components/blog/PostList/index.tsx`
-- [ ] Create `components/blog/PostDetail/index.tsx`
-- [ ] Create `components/common/Pagination/index.tsx`
-- [ ] Create `app/blog/page.tsx`
-- [ ] Create `app/blog/[id]/page.tsx`
-- [ ] Create `app/blog/loading.tsx`
-- [ ] Create `app/blog/error.tsx`
+- [x] Create `store/sagas/postsSaga.ts`
+- [x] Create `components/blog/PostCard/index.tsx`
+- [x] Create `components/blog/PostList/index.tsx`
+- [x] Create `components/blog/PostDetail/index.tsx`
+- [x] Create `components/common/Pagination/index.tsx`
+- [x] Create `app/blog/page.tsx`
+- [x] Create `app/blog/[id]/page.tsx`
+- [x] Create `app/blog/loading.tsx`
+- [x] Create `app/blog/error.tsx`
 
 ### 🤖 AI PROMPT — Module 6A: Posts Saga
 ```

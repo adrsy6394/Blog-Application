@@ -81,6 +81,30 @@ const postsSlice = createSlice({
       }
       state.isLoading = false;
     },
+    fetchPostsRequest(state, action: PayloadAction<{page: number}>) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    fetchPostRequest(state, action: PayloadAction<number>) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    createPostRequest(state, action: PayloadAction<any>) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    updatePostRequest(state, action: PayloadAction<{id: number, data: any}>) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    deletePostRequest(state, action: PayloadAction<number>) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    searchPostsRequest(state, action: PayloadAction<string>) {
+      state.isLoading = true;
+      state.error = null;
+    },
   },
 });
 
@@ -93,6 +117,12 @@ export const {
   addPost,
   updatePost,
   removePost,
+  fetchPostsRequest,
+  fetchPostRequest,
+  createPostRequest,
+  updatePostRequest,
+  deletePostRequest,
+  searchPostsRequest,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
