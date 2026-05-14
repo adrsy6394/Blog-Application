@@ -692,13 +692,13 @@ Tailwind CSS styling. Clean, readable comment thread design.
 ## MODULE 8 — UI Components & Global State {#module-8}
 
 ### ✅ To-Do
-- [ ] Create `components/common/Navbar/index.tsx`
-- [ ] Create `components/common/Button/index.tsx`
-- [ ] Create `components/common/Card/index.tsx`
-- [ ] Create `components/common/Loader/index.tsx`
-- [ ] Create `components/common/ErrorMessage/index.tsx`
-- [ ] Create `components/common/Toast/index.tsx`
-- [ ] Create `hooks/useLocalStorage.ts`
+- [x] Create `components/common/Navbar/index.tsx`
+- [x] Create `components/common/Button/index.tsx`
+- [x] Create `components/common/Card/index.tsx`
+- [x] Create `components/common/Loader/index.tsx`
+- [x] Create `components/common/ErrorMessage/index.tsx`
+- [x] Create `components/common/Toast/index.tsx`
+- [x] Create `hooks/useLocalStorage.ts`
 
 ### 🤖 AI PROMPT — Module 8A: Navbar
 ```
