@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import NextDynamic from 'next/dynamic';
 import { PostCardSkeleton } from '@/components/common/Skeleton';
 
-const BlogListClient = dynamic(() => import('@/components/blog/BlogListClient'), {
+const BlogListClient = NextDynamic(() => import('@/components/blog/BlogListClient'), {
   loading: () => (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <PostCardSkeleton />

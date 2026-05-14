@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { postsService } from '@/lib/postsService';
 import PostCard from '@/components/blog/PostCard';
+import { Post } from '@/store/slices/postsSlice';
 
 export const metadata: Metadata = {
   title: "BlogApp — Modern Blogging Platform",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 export const revalidate = 1800;
 
 export default async function HomePage() {
-  let posts = [];
+  let posts: Post[] = [];
   try {
     const data = await postsService.getAllPosts(6, 0);
     posts = data.posts;
@@ -75,7 +76,7 @@ export default async function HomePage() {
           {posts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {posts.map(post => (
-                <PostCard key={post.id} post={post as any} />
+                <PostCard key={post.id} post={post} />
               ))}
             </div>
           ) : (

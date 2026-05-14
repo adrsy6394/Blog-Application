@@ -1158,11 +1158,11 @@ Create corresponding Redux action in postsSaga: fetchUserPostsSaga
 ## MODULE 16 — Deployment & README {#module-16}
 
 ### ✅ To-Do
-- [ ] Test build locally: `npm run build`
-- [ ] Fix any TypeScript errors
-- [ ] Deploy to Vercel
-- [ ] Write README.md
-- [ ] Create submission document
+- [x] Test build locally: `npm run build`
+- [x] Fix any TypeScript errors
+- [x] Deploy to Vercel
+- [x] Write README.md
+- [x] Create submission document
 
 ### 🤖 AI PROMPT — Module 16: README
 ```

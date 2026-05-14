@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { postsService } from '@/lib/postsService';
 import { authService } from '@/lib/authService';
 import PostCard from '@/components/blog/PostCard';
+import { Post } from '@/store/slices/postsSlice';
 import { Suspense } from 'react';
 import { PostCardSkeleton } from '@/components/common/Skeleton';
 
@@ -27,7 +28,7 @@ export default async function ProfilePage({ params }: PageProps) {
   const userId = Number(id);
   
   let user = null;
-  let userPosts = [];
+  let userPosts: Post[] = [];
 
   try {
     user = await authService.getUserById(userId);
