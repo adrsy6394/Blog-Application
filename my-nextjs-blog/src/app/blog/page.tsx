@@ -1,7 +1,18 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
-import BlogListClient from '@/components/blog/BlogListClient';
+import dynamic from 'next/dynamic';
 import { PostCardSkeleton } from '@/components/common/Skeleton';
+
+const BlogListClient = dynamic(() => import('@/components/blog/BlogListClient'), {
+  loading: () => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <PostCardSkeleton />
+      <PostCardSkeleton />
+      <PostCardSkeleton />
+    </div>
+  ),
+  ssr: true
+});
 import { postsService } from '@/lib/postsService';
 
 export const metadata: Metadata = {

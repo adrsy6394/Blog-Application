@@ -1019,12 +1019,12 @@ Show complete code for all files.
 ## MODULE 14 — Performance Optimization {#module-14}
 
 ### ✅ To-Do
-- [ ] Dynamic imports for heavy components
-- [ ] React.memo on PostCard, Pagination
-- [ ] useMemo/useCallback in list components
-- [ ] Reselect selectors (done in Module 3)
-- [ ] next/image for all images
-- [ ] Code splitting verified
+- [x] Dynamic imports for heavy components
+- [x] React.memo on PostCard, Pagination
+- [x] useMemo/useCallback in list components
+- [x] Reselect selectors (done in Module 3)
+- [x] next/image for all images
+- [x] Code splitting verified
 
 ### 🤖 AI PROMPT — Module 14
 ```

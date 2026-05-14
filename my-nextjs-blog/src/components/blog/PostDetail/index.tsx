@@ -5,7 +5,11 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import { fetchPostRequest } from '@/store/slices/postsSlice';
 import { selectCurrentPost, selectPostsLoading } from '@/store/selectors/postsSelectors';
 import { PostDetailSkeleton } from '@/components/common/Skeleton';
-import CommentSection from '../CommentSection';
+import dynamic from 'next/dynamic';
+const CommentSection = dynamic(() => import('../CommentSection'), {
+  loading: () => <div className="h-40 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-xl" />,
+  ssr: false
+});
 import Link from 'next/link';
 
 interface PostDetailClientProps {

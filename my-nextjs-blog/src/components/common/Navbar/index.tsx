@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useAuth } from '@/hooks/useAuth';
@@ -63,8 +64,17 @@ export default function Navbar() {
             {isAuthenticated && user ? (
               <div className="flex items-center space-x-4 border-l pl-4 border-gray-200 dark:border-gray-700">
                 <Link href="/dashboard" className="flex items-center space-x-2 group">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400 flex items-center justify-center font-bold uppercase group-hover:ring-2 ring-blue-500 transition-all">
-                    {user.username.charAt(0)}
+                  <div className="relative w-8 h-8 rounded-full overflow-hidden bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400 flex items-center justify-center font-bold uppercase group-hover:ring-2 ring-blue-500 transition-all shadow-sm">
+                    {user.image ? (
+                      <Image 
+                        src={user.image} 
+                        alt={user.username} 
+                        fill 
+                        className="object-cover"
+                      />
+                    ) : (
+                      user.username.charAt(0)
+                    )}
                   </div>
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {user.username}
@@ -138,8 +148,17 @@ export default function Navbar() {
             {isAuthenticated && user ? (
               <div className="px-5 space-y-3">
                 <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400 flex items-center justify-center font-bold uppercase">
-                    {user.username.charAt(0)}
+                  <div className="relative w-10 h-10 rounded-full overflow-hidden bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400 flex items-center justify-center font-bold uppercase shadow-sm">
+                    {user.image ? (
+                      <Image 
+                        src={user.image} 
+                        alt={user.username} 
+                        fill 
+                        className="object-cover"
+                      />
+                    ) : (
+                      user.username.charAt(0)
+                    )}
                   </div>
                   <div>
                     <div className="text-base font-medium text-gray-800 dark:text-white">{user.firstName} {user.lastName}</div>

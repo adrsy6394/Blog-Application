@@ -47,18 +47,18 @@ export default function BlogListClient({ initialData }: BlogListClientProps) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch]);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-  };
+  }, []);
 
-  const executeSearch = (e: React.FormEvent) => {
+  const executeSearch = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       dispatch(searchPostsRequest(searchQuery));
     } else {
       dispatch(fetchPostsRequest({ page: 1 }));
     }
-  };
+  }, [dispatch, searchQuery]);
 
   return (
     <>
