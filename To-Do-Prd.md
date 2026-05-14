@@ -829,8 +829,8 @@ All pages: export proper metadata, use Tailwind CSS, responsive design.
 ## MODULE 10 — Route Protection {#module-10}
 
 ### ✅ To-Do
-- [ ] Create `middleware.ts`
-- [ ] Test protected routes work
+- [x] Create `middleware.ts`
+- [x] Test protected routes work
 
 ### 🤖 AI PROMPT — Module 10
 ```
