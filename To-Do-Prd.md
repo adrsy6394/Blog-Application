@@ -783,10 +783,10 @@ Dispatch removeNotification on close or auto-dismiss.
 ## MODULE 9 — All Pages {#module-9}
 
 ### ✅ To-Do
-- [ ] `app/page.tsx` — Home page
-- [ ] `app/about/page.tsx` — About page
-- [ ] `app/contact/page.tsx` — Contact page (UI only)
-- [ ] `app/dashboard/page.tsx` — Admin dashboard (protected)
+- [x] `app/page.tsx` — Home page
+- [x] `app/about/page.tsx` — About page
+- [x] `app/contact/page.tsx` — Contact page (UI only)
+- [x] `app/dashboard/page.tsx` — Admin dashboard (protected)
 
 ### 🤖 AI PROMPT — Module 9
 ```
